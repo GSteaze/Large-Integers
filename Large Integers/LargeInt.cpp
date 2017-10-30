@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include "LargeInt.h"
 
 LargeInt::LargeInt()
@@ -7,6 +8,7 @@ LargeInt::LargeInt()
 	_result[101] = 0;
 	_number = "0";
 	_secondValue = "";
+	_isNegative = false;
 }
 
 
@@ -18,6 +20,17 @@ void LargeInt::setNumber(string number) {
 	_number = number;
 	for (int index = 0; index < number.length(); index++) {
 		_firstNumber[index] = ((int)number[index]) - '0';
+		
+		//cout << "number" << ((int)number[index] - '0') << endl;
+		//cout << "_number" << _firstNumber[index] << endl;
+
+	}
+	negativeNumber();
+}
+
+void LargeInt::negativeNumber() {
+	if (_number.find('-') != NULL) {
+		_isNegative = true;
 	}
 }
 
@@ -40,7 +53,7 @@ void LargeInt::fillArray() {
 string LargeInt::getNumber() {
 	string result = "";
 	for (int index = 0; index < 100; index++) {
-		char digit = _firstNumber[index];
+		char digit = ((char)_firstNumber[index] + '0');
 		result.push_back(digit);
 	}
 	return result;
@@ -57,32 +70,46 @@ string LargeInt::getResult() {
 
 LargeInt LargeInt::add(LargeInt& rValue) {
 	LargeInt result;
-	setSecondNumber(rValue.getNumber);
+	setSecondNumber(rValue.getNumber());
+	
+	//cout << "rValue" << rValue.getNumber() << endl;
+	//cout << "second number" << _secondValue << endl;
+
 	bool isDigitCarried = false;
 
 	for (int index = 99; index >= 0; index--) {
 		int digit = _firstNumber[index] + _secondNumber[index];
+
+		//cout << digit << endl;
+
 		if (isDigitCarried) {
-			digit += 1; 
+			digit += 1;
 		}
-		if (digit > 10) {
-			_result[index] = digit % 10;
+		if (digit >= 10) {
+			_result[index + 1] = digit % 10;
 			isDigitCarried = true;
 		}
-		else if (digit > 0 && digit < 10) {
-			_result[index] = digit;
+		else if (digit >= 0 && digit < 10) {
+			_result[index + 1] = digit;
 			isDigitCarried = false;
 		}
+
+
+		//cout << "Result" << _result[index] << endl;
+		//cout << "loop number" << index << endl;
+
 	}
 	if (isDigitCarried) {
-		_result[101] = 1;
+		_result[0] = 1;
 	}
+
 	result.setNumber(getResult());
+	return result;
 }
 
 LargeInt LargeInt::subtract(LargeInt& rValue) {
 	LargeInt result;
-	setSecondNumber(rValue.getNumber);
+	setSecondNumber(rValue.getNumber());
 	bool isBorrowedDigit = false;
 
 	for (int index = 99; index >= 0; index--) {
@@ -104,6 +131,7 @@ LargeInt LargeInt::subtract(LargeInt& rValue) {
 		}
 	}
 	result.setNumber(getResult());
+	return result;
 }
 
 //LargeInt operator+(const LargeInt& rValue) {

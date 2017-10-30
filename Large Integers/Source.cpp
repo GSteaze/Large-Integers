@@ -48,7 +48,24 @@ bool isRunAgain() {
 	return isAgain;
 }
 
+void TestCode() {
+	/*string testNumber = stringInput();
+	cout << testNumber << endl;*/
+	LargeInt v1, v2, v3;
+	v1.setNumber("12");
+	cout << "v1" << v1.getNumber() << endl;
+	v2.setNumber("19");
+	cout << "v2" << v2.getNumber() << endl;
+	cout << "Sum starting." << endl << endl;
+	v3 = v1.add(v2);
+	cout << "v3" << v3.getNumber() << endl;
+
+	system("pause");
+}
+
 int main() {
+	//TestCode();
+
 	bool isAgain = false;
 
 	do {
@@ -61,20 +78,12 @@ int main() {
 		v2.setNumber(secondNumber);
 		v3 = v1.add(v2);
 
-		cout << "First Number : " << v1.getNumber << endl;
-		cout << "Second Number : " << v2.getNumber << endl;
-		cout << "Sum : " << v3.getNumber << endl << endl;
+		cout << "First Number : " << v1.getNumber() << endl;
+		cout << "Second Number : " << v2.getNumber() << endl;
+		cout << "Sum : " << v3.getNumber() << endl << endl;
 
 		isAgain = isRunAgain();
 	} while (isAgain);
 
 	return 0;
-}
-
-void TestCode() {
-	LargeInt v1, v2, v3;
-	v1.setNumber("12");
-	v2.setNumber("19");
-	v3 = v1.add(v2);
-
 }

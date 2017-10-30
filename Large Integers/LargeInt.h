@@ -12,11 +12,13 @@ private:
 	int _result[101];
 	string _number;
 	string _secondValue;
+	bool _isNegative;
 
 public:
 	LargeInt();
 	~LargeInt();
 	void setNumber(string number);
+	void negativeNumber();
 	void setSecondNumber(string number);
 	string getNumber();
 	string getResult();
